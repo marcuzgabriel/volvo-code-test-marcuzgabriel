@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
 import Animated, { useAnimatedReaction, runOnJS } from 'react-native-reanimated';
 import { Flex, Spacer } from 'vcc-ui';
@@ -23,7 +23,7 @@ const Dot = styled.div<{ isSelected: boolean }>`
 `;
 
 const SliderDots: React.FC<SliderDotsProps> = ({ handleOnPress, carsData, currentItemVisible }) => {
-  const [currentSelectedDot, setCurrentSelectedDot] = React.useState(0);
+  const [currentSelectedDot, setCurrentSelectedDot] = useState(0);
 
   /* NOTE: Listen to pan changes in order to update the current selected dot */
   useAnimatedReaction(

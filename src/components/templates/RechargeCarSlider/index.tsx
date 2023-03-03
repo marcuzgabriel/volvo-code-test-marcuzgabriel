@@ -1,7 +1,7 @@
 import React, { useState, useCallback, Fragment, useEffect } from 'react';
 import { Spacer, Block, Text, View } from 'vcc-ui';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
-import styled, { useTheme } from 'styled-components';
+import Animated, { useSharedValue } from 'react-native-reanimated';
+import styled from 'styled-components';
 import cars from '@volvo/api/cars.json';
 import { Card, SliderActions, FilterBar, SliderDots } from '@volvo/ui/components/molecules';
 import { CardGesture, Appearance } from '@volvo/ui/components/organisms';
