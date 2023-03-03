@@ -1,0 +1,18 @@
+{
+  "eslint.validate": [
+    "react",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "json"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": false
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true
+}
