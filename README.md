@@ -9,6 +9,7 @@ This package includes:
 
 - Responsive design for web and mobile according to docs
 - Usage of vcc/ui
+- Selfmade gesture and animation handling approach for sliding the cars
 - Combination and manipulation of vcc/ui together with styled components
 - Concatating of data id to new urls shop & learn
 - Bonus: Done a few unit tests just for show off under organisms/CardGesture/gestures - optimally I would have done unit tests
