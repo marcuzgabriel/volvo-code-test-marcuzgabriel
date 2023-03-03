@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 import Animated, { useAnimatedReaction, runOnJS } from 'react-native-reanimated';
 import { Flex, Spacer } from 'vcc-ui';

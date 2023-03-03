@@ -1,7 +1,7 @@
 import React, { useState, useCallback, Fragment, useEffect } from 'react';
 import { Spacer, Block, Text, View } from 'vcc-ui';
-import Animated, { useSharedValue } from 'react-native-reanimated';
-import styled from 'styled-components';
+import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
+import styled, { useTheme } from 'styled-components';
 import cars from '@volvo/api/cars.json';
 import { Card, SliderActions, FilterBar, SliderDots } from '@volvo/ui/components/molecules';
 import { CardGesture, Appearance } from '@volvo/ui/components/organisms';
@@ -27,7 +27,37 @@ const RechargeCarSlider: React.FC = () => {
   const translationX = useSharedValue(0);
   const currentItemVisible = useSharedValue(0);
   const updateCurrentVisibleItem = useSharedValue(0);
+  const currentNumberOfTabs = useSharedValue(0);
   const cardWidth = useSharedValue(0);
+  const numberOfLearnTabs = useSharedValue(0);
+
+  /* NOTE: Accessibility - enable the possibility to 
+  tab through the cars */
+  const checkTabPress = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        currentNumberOfTabs.value = currentNumberOfTabs.value + 1;
+        const text = document.activeElement?.textContent;
+        const isTextEqualLearn = text?.toLowerCase() === 'learn';
+
+        if (isTextEqualLearn) {
+          numberOfLearnTabs.value = numberOfLearnTabs.value + 1;
+        }
+
+        if (numberOfLearnTabs.value > 1 && isTextEqualLearn) {
+          updateCurrentVisibleItem.value = currentItemVisible.value + 1;
+        }
+      }
+    },
+    [currentNumberOfTabs, numberOfLearnTabs],
+  );
+
+  useEffect(() => {
+    document.addEventListener('keyup', checkTabPress);
+    return () => {
+      document.removeEventListener('keyup', checkTabPress);
+    };
+  });
 
   const handleOnPress = useCallback(
     (isNext?: boolean, index?: number) => {
@@ -43,7 +73,7 @@ const RechargeCarSlider: React.FC = () => {
           : currentItemVisible.value;
       }
     },
-    [carsData.length, currentItemVisible.value, updateCurrentVisibleItem],
+    [carsData.length, currentItemVisible.value, updateCurrentVisibleItem, currentNumberOfTabs],
   );
 
   const onChange = useCallback(
