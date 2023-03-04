@@ -30,22 +30,38 @@ const RechargeCarSlider: React.FC = () => {
   const currentNumberOfTabs = useSharedValue(0);
   const cardWidth = useSharedValue(0);
   const numberOfLearnTabs = useSharedValue(0);
+  const numberOfShopTabs = useSharedValue(0);
 
   /* NOTE: Accessibility - enable the possibility to 
   tab through the cars */
   const checkTabPress = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
-        currentNumberOfTabs.value = currentNumberOfTabs.value + 1;
+        const isGoingBackwards = e.shiftKey && e.key === 'Tab';
+
+        currentNumberOfTabs.value = isGoingBackwards
+          ? currentNumberOfTabs.value - 1
+          : currentNumberOfTabs.value + 1;
         const text = document.activeElement?.textContent;
         const isTextEqualLearn = text?.toLowerCase() === 'learn';
+        const isTextEqualShop = text?.toLowerCase() === 'shop';
 
         if (isTextEqualLearn) {
-          numberOfLearnTabs.value = numberOfLearnTabs.value + 1;
+          numberOfLearnTabs.value = isGoingBackwards
+            ? numberOfLearnTabs.value - 1
+            : numberOfLearnTabs.value + 1;
         }
 
-        if (numberOfLearnTabs.value > 1 && isTextEqualLearn) {
+        if (isTextEqualShop) {
+          numberOfShopTabs.value = isGoingBackwards
+            ? numberOfShopTabs.value - 1
+            : numberOfShopTabs.value + 1;
+        }
+
+        if (numberOfLearnTabs.value > 1 && isTextEqualLearn && !isGoingBackwards) {
           updateCurrentVisibleItem.value = currentItemVisible.value + 1;
+        } else if (isTextEqualShop && isGoingBackwards) {
+          updateCurrentVisibleItem.value = currentItemVisible.value - 1;
         }
       }
     },
