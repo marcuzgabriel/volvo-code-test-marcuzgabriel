@@ -84,9 +84,9 @@ const RechargeCarSlider: React.FC = () => {
           ? currentItemVisible.value + 1 !== carsData.length
             ? currentItemVisible.value + 1
             : currentItemVisible.value
-          : currentItemVisible.value - 1 !== 0
-          ? currentItemVisible.value - 1
-          : currentItemVisible.value;
+          : currentItemVisible.value - 1 === 0
+          ? 0
+          : currentItemVisible.value - 1;
       }
     },
     [carsData.length, currentItemVisible.value, updateCurrentVisibleItem, currentNumberOfTabs],
