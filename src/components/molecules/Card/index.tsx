@@ -64,6 +64,7 @@ const Card: React.FC<CardProps> = ({ id, bodyType, modelName, modelType, imageUr
             priority
             src={imageUrl}
             fill
+            sizes={`(width: ${CARD_AND_IMAGE_WIDTH}px)`}
             style={{
               pointerEvents: 'none',
               objectFit: 'contain',
